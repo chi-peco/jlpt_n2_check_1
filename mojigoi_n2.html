@@ -1,0 +1,1415 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1"><style>:root{color-scheme:light}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>文字・語彙 N2 模擬試験 第1回</title>
+<style>
+  :root {
+    --bg: #f8f8f6;
+    --surface: #ffffff;
+    --surface2: #f0f0ee;
+    --border: #d8d8d4;
+    --text: #222222;
+    --text-light: #666666;
+    --accent: #3a6b8a;
+    --accent-light: #e8f0f5;
+    --tag-bg: #222222;
+    --tag-text: #ffffff;
+    --btn: #bbbbbb;
+    --btn-text: #555555;
+    --ruby-color: #3a6b8a;
+    --correct: #27ae60;
+    --wrong: #c0392b;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Hiragino Kaku Gothic ProN', 'Meiryo', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    font-size: 16px;
+    line-height: 1.85;
+  }
+
+  header {
+    background: var(--accent);
+    color: #fff;
+    padding: 20px 24px 16px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  header h1 { font-size: 1.1rem; font-weight: 700; letter-spacing: 0.05em; }
+  header p { font-size: 0.78rem; opacity: 0.8; margin-top: 2px; }
+
+  nav {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 8px 16px;
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    font-size: 0.75rem;
+    position: sticky;
+    top: 57px;
+    z-index: 99;
+  }
+  nav a {
+    color: var(--accent);
+    text-decoration: none;
+    padding: 3px 8px;
+    border-radius: 3px;
+    border: 1px solid var(--accent-light);
+  }
+  nav a:hover { background: var(--accent-light); }
+
+  main { max-width: 860px; margin: 0 auto; padding: 24px 16px 60px; }
+
+  .section {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    margin-bottom: 28px;
+    overflow: hidden;
+  }
+
+  .section-header {
+    background: var(--accent);
+    color: #fff;
+    padding: 10px 18px;
+    font-size: 1rem;
+    font-weight: 700;
+  }
+
+  .section-body { padding: 18px; }
+
+  .point-box {
+    background: #fff8e1;
+    border-left: 3px solid #f0a500;
+    padding: 12px 16px;
+    border-radius: 0 4px 4px 0;
+    font-size: 0.9rem;
+    margin: 12px 0 16px;
+  }
+  .point-label {
+    display: inline-block;
+    background: #f0a500;
+    color: #fff;
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 2px;
+    margin-bottom: 6px;
+  }
+
+  .mondai-card {
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    margin: 10px 0;
+    overflow: hidden;
+  }
+  .mondai-head {
+    background: var(--surface2);
+    padding: 8px 14px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  .mondai-num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 26px;
+    height: 26px;
+    background: var(--accent);
+    color: #fff;
+    border-radius: 50%;
+    font-size: 0.8rem;
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .mondai-body { padding: 10px 14px; }
+
+  .choices {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4px 12px;
+    margin: 8px 0;
+    font-size: 0.9rem;
+  }
+  .choices-4col {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 4px 8px;
+    margin: 8px 0;
+    font-size: 0.9rem;
+  }
+  .choice-item { padding: 3px 0; }
+
+  .vocab-memo {
+    display: none;
+    background: #f0f8f0;
+    border: 1px solid #b8ddb8;
+    border-radius: 4px;
+    padding: 7px 12px;
+    margin-top: 6px;
+    font-size: 0.8rem;
+    color: #2a5a2a;
+    line-height: 1.7;
+  }
+  .vocab-memo.show { display: block; }
+  .vocab-memo-label {
+    font-weight: 700;
+    color: #27ae60;
+    margin-right: 4px;
+  }
+  .btn-vocab {
+    font-size: 0.65rem;
+    color: var(--btn-text);
+    background: transparent;
+    border: 1px solid var(--btn);
+    border-radius: 3px;
+    padding: 1px 5px;
+    cursor: pointer;
+    line-height: 1.4;
+    white-space: nowrap;
+    margin-top: 4px;
+    display: inline-block;
+  }
+  .btn-vocab:hover { background: #eeeeee; }
+  .ans-btn {
+    display: inline-block;
+    margin-top: 8px;
+    padding: 4px 14px;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    font-size: 0.8rem;
+    cursor: pointer;
+  }
+  .ans-btn:hover { opacity: 0.85; }
+  .ans-area {
+    display: none;
+    margin-top: 8px;
+    background: var(--accent-light);
+    border: 1px solid var(--accent);
+    border-radius: 4px;
+    padding: 8px 12px;
+    font-size: 0.88rem;
+  }
+  .ans-area.show { display: block; }
+  .correct-mark { color: var(--correct); font-weight: 700; }
+  .wrong-note { color: var(--wrong); font-size: 0.82rem; }
+
+  .line-wrap {
+    display: flex;
+    align-items: flex-start;
+    gap: 6px;
+    margin-bottom: 4px;
+  }
+  .line-text { flex: 1; }
+  .btn-group {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    flex-shrink: 0;
+    padding-top: 2px;
+  }
+  .btn-r, .btn-s {
+    font-size: 0.65rem;
+    color: var(--btn-text);
+    background: transparent;
+    border: 1px solid var(--btn);
+    border-radius: 3px;
+    padding: 1px 5px;
+    cursor: pointer;
+    line-height: 1.4;
+    white-space: nowrap;
+  }
+  .btn-r:hover, .btn-s:hover { background: #eeeeee; }
+
+  ruby rt {
+    display: none;
+    font-size: 0.6em;
+    color: var(--ruby-color);
+  }
+  ruby.show rt { display: revert; }
+
+  .sent-id {
+    display: none;
+    font-size: 0.8rem;
+    color: #1a3a6b;
+    background: #eaf0f8;
+    border-radius: 3px;
+    padding: 4px 8px;
+    margin-top: 4px;
+  }
+  .sent-id.show { display: block; }
+
+  .maru { color: var(--correct); font-weight: 700; }
+  .batsu { color: var(--wrong); font-weight: 700; }
+
+  @media (max-width: 600px) {
+    .section-body { padding: 12px; }
+    body { font-size: 15px; }
+    .choices { grid-template-columns: 1fr; }
+    .choices-4col { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>文字・語彙 N2 模擬試験 第1回</h1>
+  <p>JLPT N2 この一冊で合格する 日本語の森</p>
+</header>
+
+<nav>
+  <a href="#s1">① 漢字読み</a>
+  <a href="#s2">② 表記</a>
+  <a href="#s3">③ 文脈規定①</a>
+  <a href="#s4">④ 文脈規定②</a>
+  <a href="#s5">⑤ 言い換え類義</a>
+  <a href="#s6">⑥ 用法</a>
+</nav>
+
+<main>
+
+<!-- ===== 1 漢字読み ===== -->
+<div id="s1" class="section">
+  <div class="section-header">1｜漢字読み</div>
+  <div class="section-body">
+
+    <div class="point-box">
+      <div class="point-label">ポイント</div>
+      <div class="line-wrap">
+        <div class="line-text">
+          <ruby>問題<rt>もんだい</rt></ruby>1では、＿＿＿の<ruby>言葉<rt>ことば</rt></ruby>の<ruby>読<rt>よ</rt></ruby>み<ruby>方<rt>かた</rt></ruby>として<ruby>最<rt>もっと</rt></ruby>もよいものを、1・2・3・4から<ruby>一<rt>ひと</rt></ruby>つ<ruby>選<rt>えら</rt></ruby>びなさい。
+          <div class="sent-id" id="id-p1-point">Pada soal 1, pilih satu cara baca yang paling tepat untuk kata yang digaris bawahi, dari pilihan 1・2・3・4.</div>
+        </div>
+        <div class="btn-group">
+          <button class="btn-r" onclick="toggleRuby(this)">ル</button>
+          <button class="btn-s" onclick="toggleSent('id-p1-point',this)">訳</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q1 -->
+    <div class="mondai-card">
+      <div class="mondai-head">
+        <span class="mondai-num">1</span>
+        <div class="line-wrap" style="margin:0;">
+          <div class="line-text">
+            <ruby>結婚式<rt>けっこんしき</rt></ruby>の<ruby>司会<rt>しかい</rt></ruby>を<u><ruby>務<rt>つと</rt></ruby>めます</u>。
+            <div class="sent-id" id="id-s1-q1">Saya akan bertugas sebagai pembawa acara pernikahan.</div>
+          </div>
+          <div class="btn-group">
+            <button class="btn-r" onclick="toggleRuby(this)">ル</button>
+            <button class="btn-s" onclick="toggleSent('id-s1-q1',this)">訳</button>
+          </div>
+        </div>
+      </div>
+      <div class="mondai-body">
+        <div class="choices-4col">
+          <div class="choice-item">1　すすめ</div>
+          <div class="choice-item">2　おさめ</div>
+          <div class="choice-item">3　つとめ</div>
+          <div class="choice-item">4　まとめ</div>
+        </div>
+        <button class="btn-vocab" onclick="toggleVocab('vm-s1-1')">語彙</button>
+        <div class="vocab-memo" id="vm-s1-1"><span class="vocab-memo-label">📖 語彙メモ</span>務める（つとめる）＝bertugas/menjalankan peran／結婚式（けっこんしき）＝upacara pernikahan／司会（しかい）＝pembawa acara／おさめる（収める）＝menyimpan/menguasai／まとめる＝merangkum</div>
+        <button class="ans-btn" onclick="toggleAns('ans-s1-q1')">答えを見る</button>
+        <div class="ans-area" id="ans-s1-q1">
+          <div><span class="batsu">✗</span> 1　すすめ　→　存在しない読み方（進める＝melanjutkan）</div>
+          <div><span class="batsu">✗</span> 2　おさめ　→　収める（おさめる）＝menyimpan/menguasai</div>
+          <div><span class="maru">○</span> 3　つとめ　→　務める＝bertugas/menjalankan peran ✓正解</div>
+          <div><span class="batsu">✗</span> 4　まとめ　→　まとめる＝merangkum</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q2 -->
+    <div class="mondai-card">
+      <div class="mondai-head">
+        <span class="mondai-num">2</span>
+        <div class="line-wrap" style="margin:0;">
+          <div class="line-text">
+            <ruby>道路<rt>どうろ</rt></ruby>を<u><ruby>拡張<rt>かくちょう</rt></ruby></u>するための<ruby>工事<rt>こうじ</rt></ruby>が<ruby>行<rt>おこな</rt></ruby>われた。
+            <div class="sent-id" id="id-s1-q2">Dilakukan pekerjaan konstruksi untuk memperluas jalan.</div>
+          </div>
+          <div class="btn-group">
+            <button class="btn-r" onclick="toggleRuby(this)">ル</button>
+            <button class="btn-s" onclick="toggleSent('id-s1-q2',this)">訳</button>
+          </div>
+        </div>
+      </div>
+      <div class="mondai-body">
+        <div class="choices-4col">
+          <div class="choice-item">1　こうちょ</div>
+          <div class="choice-item">2　こうちょう</div>
+          <div class="choice-item">3　かくちょ</div>
+          <div class="choice-item">4　かくちょう</div>
+        </div>
+        <button class="btn-vocab" onclick="toggleVocab('vm-s1-2')">語彙</button>
+        <div class="vocab-memo" id="vm-s1-2"><span class="vocab-memo-label">📖 語彙メモ</span>拡張（かくちょう）＝perluasan/ekspansi（※「かく」＋長音「ちょう」に注意）／道路（どうろ）＝jalan raya／工事（こうじ）＝pekerjaan konstruksi</div>
+        <button class="ans-btn" onclick="toggleAns('ans-s1-q2')">答えを見る</button>
+        <div class="ans-area" id="ans-s1-q2">
+          <div><span class="batsu">✗</span> 1　こうちょ　→　「かく」でなく「こう」＋長音が足りない</div>
+          <div><span class="batsu">✗</span> 2　こうちょう　→　最初の読みが「こう」で誤り（正しくは「かく」）</div>
+          <div><span class="batsu">✗</span> 3　かくちょ　→　「ちょう」の長音が足りない</div>
+          <div><span class="maru">○</span> 4　かくちょう　→　拡張＝perluasan/ekspansi ✓正解</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q3 -->
+    <div class="mondai-card">
+      <div class="mondai-head">
+        <span class="mondai-num">3</span>
+        <div class="line-wrap" style="margin:0;">
+          <div class="line-text">
+            お<ruby>金持<rt>かねも</rt></ruby>ちになっても、<ruby>幸<rt>しあわ</rt></ruby>せになれる<u><ruby>保証<rt>ほしょう</rt></ruby></u>はない。
+            <div class="sent-id" id="id-s1-q3">Meskipun menjadi kaya, tidak ada jaminan bisa bahagia.</div>
+          </div>
+          <div class="btn-group">
+            <button class="btn-r" onclick="toggleRuby(this)">ル</button>
+            <button class="btn-s" onclick="toggleSent('id-s1-q3',this)">訳</button>
+          </div>
+        </div>
+      </div>
+      <div class="mondai-body">
+        <div class="choices-4col">
+          <div class="choice-item">1　ほうしょう</div>
+          <div class="choice-item">2　ほしょう</div>
+          <div class="choice-item">3　ほしょ</div>
+          <div class="choice-item">4　ほうしょ</div>
+        </div>
+        <button class="btn-vocab" onclick="toggleVocab('vm-s1-3')">語彙</button>
+        <div class="vocab-memo" id="vm-s1-3"><span class="vocab-memo-label">📖 語彙メモ</span>保証（ほしょう）＝jaminan/garansi（※「ほ」は短音、「しょう」は長音に注意）／お金持ち（おかねもち）＝orang kaya／幸せ（しあわせ）＝kebahagiaan</div>
+        <button class="ans-btn" onclick="toggleAns('ans-s1-q3')">答えを見る</button>
+        <div class="ans-area" id="ans-s1-q3">
+          <div><span class="batsu">✗</span> 1　ほうしょう　→　「ほ」は短音なので「ほう」は誤り</div>
+          <div><span class="maru">○</span> 2　ほしょう　→　保証＝jaminan/garansi ✓正解</div>
+          <div><span class="batsu">✗</span> 3　ほしょ　→　「しょう」の長音が足りない</div>
+          <div><span class="batsu">✗</span> 4　ほうしょ　→　「ほう」も「しょ」も誤り</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q4 -->
+    <div class="mondai-card">
+      <div class="mondai-head">
+        <span class="mondai-num">4</span>
+        <div class="line-wrap" style="margin:0;">
+          <div class="line-text">
+            <ruby>先生<rt>せんせい</rt></ruby><u><ruby>宛<rt>あて</rt></ruby></u>に<ruby>荷物<rt>にもつ</rt></ruby>を<ruby>送<rt>おく</rt></ruby>った。
+            <div class="sent-id" id="id-s1-q4">Saya mengirim paket yang ditujukan kepada guru.</div>
+          </div>
+          <div class="btn-group">
+            <button class="btn-r" onclick="toggleRuby(this)">ル</button>
+            <button class="btn-s" onclick="toggleSent('id-s1-q4',this)">訳</button>
+          </div>
+        </div>
+      </div>
+      <div class="mondai-body">
+        <div class="choices-4col">
+          <div class="choice-item">1　あた</div>
+          <div class="choice-item">2　あで</div>
+          <div class="choice-item">3　あて</div>
+          <div class="choice-item">4　あだ</div>
+        </div>
+        <button class="btn-vocab" onclick="toggleVocab('vm-s1-4')">語彙</button>
+        <div class="vocab-memo" id="vm-s1-4"><span class="vocab-memo-label">📖 語彙メモ</span>宛（あて）＝ditujukan kepada/alamat（〜宛に送る＝mengirim kepada〜）／荷物（にもつ）＝paket/barang bawaan／送る（おくる）＝mengirim</div>
+        <button class="ans-btn" onclick="toggleAns('ans-s1-q4')">答えを見る</button>
+        <div class="ans-area" id="ans-s1-q4">
+          <div><span class="batsu">✗</span> 1　あた　→　存在しない読み方</div>
+          <div><span class="batsu">✗</span> 2　あで　→　存在しない読み方</div>
+          <div><span class="maru">○</span> 3　あて　→　宛＝ditujukan kepada ✓正解</div>
+          <div><span class="batsu">✗</span> 4　あだ　→　存在しない読み方</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q5 -->
+    <div class="mondai-card">
+      <div class="mondai-head">
+        <span class="mondai-num">5</span>
+        <div class="line-wrap" style="margin:0;">
+          <div class="line-text">
+            <ruby>彼<rt>かれ</rt></ruby>は<u><ruby>消極的<rt>しょうきょくてき</rt></ruby></u>な<ruby>人<rt>ひと</rt></ruby>だ。
+            <div class="sent-id" id="id-s1-q5">Dia adalah orang yang pasif.</div>
+          </div>
+          <div class="btn-group">
+            <button class="btn-r" onclick="toggleRuby(this)">ル</button>
+            <button class="btn-s" onclick="toggleSent('id-s1-q5',this)">訳</button>
+          </div>
+        </div>
+      </div>
+      <div class="mondai-body">
+        <div class="choices">
+          <div class="choice-item">1　しょうきょくてき</div>
+          <div class="choice-item">2　しょうごくてき</div>
+          <div class="choice-item">3　しょきょくてき</div>
+          <div class="choice-item">4　しょごくてき</div>
+        </div>
+        <button class="btn-vocab" onclick="toggleVocab('vm-s1-5')">語彙</button>
+        <div class="vocab-memo" id="vm-s1-5"><span class="vocab-memo-label">📖 語彙メモ</span>消極的（しょうきょくてき）＝pasif/tidak aktif（※「しょう」長音＋「きょく」に注意）／⇔積極的（せっきょくてき）＝aktif/proaktif</div>
+        <button class="ans-btn" onclick="toggleAns('ans-s1-q5')">答えを見る</button>
+        <div class="ans-area" id="ans-s1-q5">
+          <div><span class="maru">○</span> 1　しょうきょくてき　→　消極的＝pasif/tidak aktif ✓正解</div>
+          <div><span class="batsu">✗</span> 2　しょうごくてき　→　存在しない読み方（「きょく」でなく「ごく」）</div>
+          <div><span class="batsu">✗</span> 3　しょきょくてき　→　「しょう」の長音が足りない</div>
+          <div><span class="batsu">✗</span> 4　しょごくてき　→　存在しない読み方</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ===== 2 表記 ===== -->
+<div id="s2" class="section">
+  <div class="section-header">2｜表記</div>
+  <div class="section-body">
+
+    <div class="point-box">
+      <div class="point-label">ポイント</div>
+      <div class="line-wrap">
+        <div class="line-text">
+          <ruby>問題<rt>もんだい</rt></ruby>2では、＿＿＿の<ruby>言葉<rt>ことば</rt></ruby>を<ruby>漢字<rt>かんじ</rt></ruby>で<ruby>書<rt>か</rt></ruby>くとき、<ruby>最<rt>もっと</rt></ruby>もよいものを1・2・3・4から<ruby>一<rt>ひと</rt></ruby>つ<ruby>選<rt>えら</rt></ruby>びなさい。
+          <div class="sent-id" id="id-p2-point">Pada soal 2, pilih satu penulisan kanji yang paling tepat untuk kata yang digaris bawahi, dari pilihan 1・2・3・4.</div>
+        </div>
+        <div class="btn-group">
+          <button class="btn-r" onclick="toggleRuby(this)">ル</button>
+          <button class="btn-s" onclick="toggleSent('id-p2-point',this)">訳</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q6 -->
+    <div class="mondai-card">
+      <div class="mondai-head">
+        <span class="mondai-num">6</span>
+        <div class="line-wrap" style="margin:0;">
+          <div class="line-text">
+            <ruby>夏<rt>なつ</rt></ruby>に<ruby>飲<rt>の</rt></ruby>むビールは<u>かくべつ</u>だ。
+            <div class="sent-id" id="id-s2-q6">Bir yang diminum di musim panas terasa istimewa.</div>
+          </div>
+          <div class="btn-group">
+            <button class="btn-r" onclick="toggleRuby(this)">ル</button>
+            <button class="btn-s" onclick="toggleSent('id-s2-q6',this)">訳</button>
+          </div>
+        </div>
+      </div>
+      <div class="mondai-body">
+        <div class="choices-4col">
+          <div class="choice-item">1　格劃</div>
+          <div class="choice-item">2　絡別</div>
+          <div class="choice-item">3　格別</div>
+          <div class="choice-item">4　絡劃</div>
+        </div>
+        <button class="btn-vocab" onclick="toggleVocab('vm-s2-6')">語彙</button>
+        <div class="vocab-memo" id="vm-s2-6"><span class="vocab-memo-label">📖 語彙メモ</span>格別（かくべつ）＝istimewa/luar biasa（特別に優れている様子）／格（かく）＝tingkatan/mutu（格式など）／別（べつ）＝berbeda/spesial（特別など）</div>
+        <button class="ans-btn" onclick="toggleAns('ans-s2-q6')">答えを見る</button>
+        <div class="ans-area" id="ans-s2-q6">
+          <div><span class="batsu">✗</span> 1　格劃　→　「劃」の字が誤り（「別」が正しい）</div>
+          <div><span class="batsu">✗</span> 2　絡別　→　「絡」の字が誤り（「格」が正しい）</div>
+          <div><span class="maru">○</span> 3　格別　→　かくべつ＝istimewa/luar biasa ✓正解</div>
+          <div><span class="batsu">✗</span> 4　絡劃　→　「絡」も「劃」も誤り</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q7 -->
+    <div class="mondai-card">
+      <div class="mondai-head">
+        <span class="mondai-num">7</span>
+        <div class="line-wrap" style="margin:0;">
+          <div class="line-text">
+            <ruby>彼<rt>かれ</rt></ruby>はいつも<ruby>反応<rt>はんのう</rt></ruby>が<u>にぶい</u>。
+            <div class="sent-id" id="id-s2-q7">Reaksinya selalu lambat.</div>
+          </div>
+          <div class="btn-group">
+            <button class="btn-r" onclick="toggleRuby(this)">ル</button>
+            <button class="btn-s" onclick="toggleSent('id-s2-q7',this)">訳</button>
+          </div>
+        </div>
+      </div>
+      <div class="mondai-body">
+        <div class="choices-4col">
+          <div class="choice-item">1　純い</div>
+          <div class="choice-item">2　鈍い</div>
+          <div class="choice-item">3　鏡い</div>
+          <div class="choice-item">4　鋭い</div>
+        </div>
+        <button class="btn-vocab" onclick="toggleVocab('vm-s2-7')">語彙</button>
+        <div class="vocab-memo" id="vm-s2-7"><span class="vocab-memo-label">📖 語彙メモ</span>鈍い（にぶい）＝lambat/tumpul（反応が遅い）／⇔鋭い（するどい）＝tajam/cepat tanggap／純い（すない）→純（じゅん）は「純粋」など／反応（はんのう）＝reaksi</div>
+        <button class="ans-btn" onclick="toggleAns('ans-s2-q7')">答えを見る</button>
+        <div class="ans-area" id="ans-s2-q7">
+          <div><span class="batsu">✗</span> 1　純い　→　純（じゅん）は「純粋」など、「にぶい」とは読まない</div>
+          <div><span class="maru">○</span> 2　鈍い　→　にぶい＝lambat/tumpul ✓正解</div>
+          <div><span class="batsu">✗</span> 3　鏡い　→　存在しない字形</div>
+          <div><span class="batsu">✗</span> 4　鋭い　→　するどい＝tajam（意味が逆）</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q8 -->
+    <div class="mondai-card">
+      <div class="mondai-head">
+        <span class="mondai-num">8</span>
+        <div class="line-wrap" style="margin:0;">
+          <div class="line-text">
+            <ruby>夏休<rt>なつやす</rt></ruby>みは<ruby>学生達<rt>がくせいたち</rt></ruby>にたくさん<ruby>宿題<rt>しゅくだい</rt></ruby>を<u>かす</u>つもりだ。
+            <div class="sent-id" id="id-s2-q8">Selama liburan musim panas, saya berencana memberikan banyak pekerjaan rumah kepada para siswa.</div>
+          </div>
+          <div class="btn-group">
+            <button class="btn-r" onclick="toggleRuby(this)">ル</button>
+            <button class="btn-s" onclick="toggleSent('id-s2-q8',this)">訳</button>
+          </div>
+        </div>
+      </div>
+      <div class="mondai-body">
+        <div class="choices-4col">
+          <div class="choice-item">1　菓す</div>
+          <div class="choice-item">2　裸す</div>
+          <div class="choice-item">3　果す</div>
+          <div class="choice-item">4　課す</div>
+        </div>
+        <button class="btn-vocab" onclick="toggleVocab('vm-s2-8')">語彙</button>
+        <div class="vocab-memo" id="vm-s2-8"><span class="vocab-memo-label">📖 語彙メモ</span>課す（かす）＝memberikan tugas/mewajibkan（義務・負担などを与える）／宿題（しゅくだい）＝pekerjaan rumah／課（か）＝tugas/beban（課題・課税など）／果す（はたす）は「果たす」＝menyelesaikan</div>
+        <button class="ans-btn" onclick="toggleAns('ans-s2-q8')">答えを見る</button>
+        <div class="ans-area" id="ans-s2-q8">
+          <div><span class="batsu">✗</span> 1　菓す　→　菓は「かし（お菓子）」で「かす」とは読まない</div>
+          <div><span class="batsu">✗</span> 2　裸す　→　裸は「はだか」で「かす」とは読まない</div>
+          <div><span class="batsu">✗</span> 3　果す　→　果たす（はたす）＝menyelesaikan（意味が違う）</div>
+          <div><span class="maru">○</span> 4　課す　→　かす＝memberikan tugas/mewajibkan ✓正解</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q9 -->
+    <div class="mondai-card">
+      <div class="mondai-head">
+        <span class="mondai-num">9</span>
+        <div class="line-wrap" style="margin:0;">
+          <div class="line-text">
+            <ruby>強<rt>つよ</rt></ruby>いてきと<ruby>戦<rt>たたか</rt></ruby>う。
+            <div class="sent-id" id="id-s2-q9">Berjuang melawan musuh yang kuat.</div>
+          </div>
+          <div class="btn-group">
+            <button class="btn-r" onclick="toggleRuby(this)">ル</button>
+            <button class="btn-s" onclick="toggleSent('id-s2-q9',this)">訳</button>
+          </div>
+        </div>
+      </div>
+      <div class="mondai-body">
+        <div class="choices-4col">
+          <div class="choice-item">1　敵</div>
+          <div class="choice-item">2　摘</div>
+          <div class="choice-item">3　適</div>
+          <div class="choice-item">4　滴</div>
+        </div>
+        <button class="btn-vocab" onclick="toggleVocab('vm-s2-9')">語彙</button>
+        <div class="vocab-memo" id="vm-s2-9"><span class="vocab-memo-label">📖 語彙メモ</span>敵（てき）＝musuh／戦う（たたかう）＝berjuang/bertarung／摘（てき）→摘む＝memetik／適（てき）→適切＝tepat／滴（てき）→雨滴＝tetesan hujan</div>
+        <button class="ans-btn" onclick="toggleAns('ans-s2-q9')">答えを見る</button>
+        <div class="ans-area" id="ans-s2-q9">
+          <div><span class="maru">○</span> 1　敵　→　てき＝musuh ✓正解</div>
+          <div><span class="batsu">✗</span> 2　摘　→　摘む（つむ）＝memetik（意味が違う）</div>
+          <div><span class="batsu">✗</span> 3　適　→　適切（てきせつ）＝tepat（意味が違う）</div>
+          <div><span class="batsu">✗</span> 4　滴　→　雨滴（うてき）＝tetesan hujan（意味が違う）</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q10 -->
+    <div class="mondai-card">
+      <div class="mondai-head">
+        <span class="mondai-num">10</span>
+        <div class="line-wrap" style="margin:0;">
+          <div class="line-text">
+            <ruby>一日<rt>いちにち</rt></ruby>も<ruby>休<rt>やす</rt></ruby>まず<u>こうぎ</u>に<ruby>出席<rt>しゅっせき</rt></ruby>する。
+            <div class="sent-id" id="id-s2-q10">Menghadiri kuliah tanpa bolos satu hari pun.</div>
+          </div>
+          <div class="btn-group">
+            <button class="btn-r" onclick="toggleRuby(this)">ル</button>
+            <button class="btn-s" onclick="toggleSent('id-s2-q10',this)">訳</button>
+          </div>
+        </div>
+      </div>
+      <div class="mondai-body">
+        <div class="choices-4col">
+          <div class="choice-item">1　講議</div>
+          <div class="choice-item">2　講義</div>
+          <div class="choice-item">3　構義</div>
+          <div class="choice-item">4　構議</div>
+        </div>
+        <button class="btn-vocab" onclick="toggleVocab('vm-s2-10')">語彙</button>
+        <div class="vocab-memo" id="vm-s2-10"><span class="vocab-memo-label">📖 語彙メモ</span>講義（こうぎ）＝kuliah/ceramah／出席（しゅっせき）＝kehadiran/hadir／講（こう）＝ceramah（講師など）／義（ぎ）＝makna/kewajiban（意義など）／議（ぎ）＝diskusi（会議など）</div>
+        <button class="ans-btn" onclick="toggleAns('ans-s2-q10')">答えを見る</button>
+        <div class="ans-area" id="ans-s2-q10">
+          <div><span class="batsu">✗</span> 1　講議　→　「義」でなく「議」（議論の議）は意味が違う</div>
+          <div><span class="maru">○</span> 2　講義　→　こうぎ＝kuliah/ceramah ✓正解</div>
+          <div><span class="batsu">✗</span> 3　構義　→　「講」でなく「構」は誤り</div>
+          <div><span class="batsu">✗</span> 4　構議　→　「構」も「議」も誤り</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ===== 3 文脈規定① ===== -->
+<div id="s3" class="section">
+  <div class="section-header">3｜文脈規定①</div>
+  <div class="section-body">
+
+    <div class="point-box">
+      <div class="point-label">ポイント</div>
+      <div class="line-wrap">
+        <div class="line-text">
+          <ruby>問題<rt>もんだい</rt></ruby>3では、（　　）に<ruby>入<rt>い</rt></ruby>れるのに<ruby>最<rt>もっと</rt></ruby>もよいものを、1・2・3・4から<ruby>一<rt>ひと</rt></ruby>つ<ruby>選<rt>えら</rt></ruby>びなさい。
+          <div class="sent-id" id="id-p3-point">Pada soal 3, pilih satu kata yang paling tepat untuk dimasukkan ke dalam (　　), dari pilihan 1・2・3・4.</div>
+        </div>
+        <div class="btn-group">
+          <button class="btn-r" onclick="toggleRuby(this)">ル</button>
+          <button class="btn-s" onclick="toggleSent('id-p3-point',this)">訳</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q11 -->
+    <div class="mondai-card">
+      <div class="mondai-head">
+        <span class="mondai-num">11</span>
+        <div class="line-wrap" style="margin:0;">
+          <div class="line-text">
+            <ruby>大臣<rt>だいじん</rt></ruby>は（　　）<ruby>施設<rt>しせつ</rt></ruby>を<ruby>訪問<rt>ほうもん</rt></ruby>して<ruby>回<rt>まわ</rt></ruby>った。
+            <div class="sent-id" id="id-s3-q11">Menteri berkeliling mengunjungi (　　) fasilitas.</div>
+          </div>
+          <div class="btn-group">
+            <button class="btn-r" onclick="toggleRuby(this)">ル</button>
+            <button class="btn-s" onclick="toggleSent('id-s3-q11',this)">訳</button>
+          </div>
+        </div>
+      </div>
+      <div class="mondai-body">
+        <div class="choices-4col">
+          <div class="choice-item">1　<ruby>正<rt>せい</rt></ruby></div>
+          <div class="choice-item">2　<ruby>合<rt>ごう</rt></ruby></div>
+          <div class="choice-item">3　<ruby>各<rt>かく</rt></ruby></div>
+          <div class="choice-item">4　<ruby>相<rt>そう</rt></ruby></div>
+        </div>
+        <button class="btn-vocab" onclick="toggleVocab('vm-s3-11')">語彙</button>
+        <div class="vocab-memo" id="vm-s3-11"><span class="vocab-memo-label">📖 語彙メモ</span>各（かく）＝masing-masing/setiap（各〜＝tiap-tiap〜）／大臣（だいじん）＝menteri／施設（しせつ）＝fasilitas／訪問（ほうもん）＝kunjungan／正（せい）→正式＝resmi／合（ごう）→合計＝total／相（そう）→相互＝saling</div>
+        <button class="ans-btn" onclick="toggleAns('ans-s3-q11')">答えを見る</button>
+        <div class="ans-area" id="ans-s3-q11">
+          <div><span class="batsu">✗</span> 1　正（せい）　→　正式＝resmi（各〜の意味にならない）</div>
+          <div><span class="batsu">✗</span> 2　合（ごう）　→　合計＝total（各〜の意味にならない）</div>
+          <div><span class="maru">○</span> 3　各（かく）　→　masing-masing/setiap（各施設＝tiap-tiap fasilitas）✓正解</div>
+          <div><span class="batsu">✗</span> 4　相（そう）　→　相互＝saling（各〜の意味にならない）</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q12 -->
+    <div class="mondai-card">
+      <div class="mondai-head">
+        <span class="mondai-num">12</span>
+        <div class="line-wrap" style="margin:0;">
+          <div class="line-text">
+            <ruby>朝<rt>あさ</rt></ruby>と<ruby>夜<rt>よる</rt></ruby>の<ruby>気温<rt>きおん</rt></ruby>（　　）が<ruby>激<rt>はげ</rt></ruby>しい。
+            <div class="sent-id" id="id-s3-q12">(　　) suhu antara pagi dan malam sangat besar.</div>
+          </div>
+          <div class="btn-group">
+            <button class="btn-r" onclick="toggleRuby(this)">ル</button>
+            <button class="btn-s" onclick="toggleSent('id-s3-q12',this)">訳</button>
+          </div>
+        </div>
+      </div>
+      <div class="mondai-body">
+        <div class="choices-4col">
+          <div class="choice-item">1　<ruby>分<rt>ぶん</rt></ruby></div>
+          <div class="choice-item">2　<ruby>差<rt>さ</rt></ruby></div>
+          <div class="choice-item">3　<ruby>違<rt>ちが</rt></ruby></div>
+          <div class="choice-item">4　<ruby>異<rt>い</rt></ruby></div>
+        </div>
+        <button class="btn-vocab" onclick="toggleVocab('vm-s3-12')">語彙</button>
+        <div class="vocab-memo" id="vm-s3-12"><span class="vocab-memo-label">📖 語彙メモ</span>差（さ）＝selisih/perbedaan（数値の差＝selisih angka）／気温（きおん）＝suhu udara／激しい（はげしい）＝besar/intens／分（ぶん）→部分＝bagian／違（ちが）→違い＝perbedaan（動詞的）／異（い）→異常＝abnormal</div>
+        <button class="ans-btn" onclick="toggleAns('ans-s3-q12')">答えを見る</button>
+        <div class="ans-area" id="ans-s3-q12">
+          <div><span class="batsu">✗</span> 1　分（ぶん）　→　部分などに使う（数値の差の意味にならない）</div>
+          <div><span class="maru">○</span> 2　差（さ）　→　selisih/perbedaan（気温差＝selisih suhu）✓正解</div>
+          <div><span class="batsu">✗</span> 3　違（ちが）　→　違いは動詞的表現（名詞として気温の後につかない）</div>
+          <div><span class="batsu">✗</span> 4　異（い）　→　異常などに使う（単独では気温〜の形にならない）</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q13 -->
+    <div class="mondai-card">
+      <div class="mondai-head">
+        <span class="mondai-num">13</span>
+        <div class="line-wrap" style="margin:0;">
+          <div class="line-text">
+            <ruby>勉強<rt>べんきょう</rt></ruby>（　　）の<ruby>日々<rt>ひび</rt></ruby>を<ruby>送<rt>おく</rt></ruby>っている。
+            <div class="sent-id" id="id-s3-q13">Menjalani hari-hari yang (　　) belajar.</div>
+          </div>
+          <div class="btn-group">
+            <button class="btn-r" onclick="toggleRuby(this)">ル</button>
+            <button class="btn-s" onclick="toggleSent('id-s3-q13',this)">訳</button>
+          </div>
+        </div>
+      </div>
+      <div class="mondai-body">
+        <div class="choices-4col">
+          <div class="choice-item">1　<ruby>漬<rt>づ</rt></ruby>け</div>
+          <div class="choice-item">2　<ruby>浸<rt>ひた</rt></ruby>り</div>
+          <div class="choice-item">3　<ruby>沈<rt>しず</rt></ruby>み</div>
+          <div class="choice-item">4　<ruby>濡<rt>ぬ</rt></ruby>れ</div>
+        </div>
+        <button class="btn-vocab" onclick="toggleVocab('vm-s3-13')">語彙</button>
+        <div class="vocab-memo" id="vm-s3-13"><span class="vocab-memo-label">📖 語彙メモ</span>〜漬け（〜づけ）＝tenggelam dalam〜/penuh dengan〜（「勉強漬けの日々」＝hari-hari yang dipenuhi belajar）／日々（ひび）＝hari demi hari／送る（おくる）＝menjalani（生活を送る）／浸り（ひたり）＝berendam（感傷に浸る）／沈み（しずみ）＝tenggelam/terbenam</div>
+        <button class="ans-btn" onclick="toggleAns('ans-s3-q13')">答えを見る</button>
+        <div class="ans-area" id="ans-s3-q13">
+          <div><span class="maru">○</span> 1　漬け（づけ）　→　〜づけ＝hari-hari penuh dengan〜（勉強漬けの日々）✓正解</div>
+          <div><span class="batsu">✗</span> 2　浸り（ひたり）　→　感傷に浸るなど感覚的な没入（日々とは組み合わせない）</div>
+          <div><span class="batsu">✗</span> 3　沈み（しずみ）　→　tenggelam/terbenam（沈む＝日没など）</div>
+          <div><span class="batsu">✗</span> 4　濡れ（ぬれ）　→　basah（濡れる＝ぬれること）</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ===== 4 文脈規定② ===== -->
+<div id="s4" class="section">
+  <div class="section-header">4｜文脈規定②</div>
+  <div class="section-body">
+
+    <div class="point-box">
+      <div class="point-label">ポイント</div>
+      <div class="line-wrap">
+        <div class="line-text">
+          （　　）に<ruby>入<rt>い</rt></ruby>れるのに<ruby>最<rt>もっと</rt></ruby>もよいものを、1・2・3・4から<ruby>一<rt>ひと</rt></ruby>つ<ruby>選<rt>えら</rt></ruby>びなさい。
+          <div class="sent-id" id="id-p4-point">Pilih satu kata yang paling tepat untuk dimasukkan ke dalam (　　), dari pilihan 1・2・3・4.</div>
+        </div>
+        <div class="btn-group">
+          <button class="btn-r" onclick="toggleRuby(this)">ル</button>
+          <button class="btn-s" onclick="toggleSent('id-p4-point',this)">訳</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q14 -->
+    <div class="mondai-card">
+      <div class="mondai-head">
+        <span class="mondai-num">14</span>
+        <div class="line-wrap" style="margin:0;">
+          <div class="line-text">
+            この<ruby>広告<rt>こうこく</rt></ruby>は<ruby>見<rt>み</rt></ruby>た<ruby>目<rt>め</rt></ruby>にかなりの（　　）があって、<ruby>街<rt>まち</rt></ruby>の<ruby>中<rt>なか</rt></ruby>でも<ruby>目立<rt>めだ</rt></ruby>っている。
+            <div class="sent-id" id="id-s4-q14">Iklan ini secara visual memiliki (　　) yang cukup besar, sehingga mencolok di tengah kota.</div>
+          </div>
+          <div class="btn-group">
+            <button class="btn-r" onclick="toggleRuby(this)">ル</button>
+            <button class="btn-s" onclick="toggleSent('id-s4-q14',this)">訳</button>
+          </div>
+        </div>
+      </div>
+      <div class="mondai-body">
+        <div class="choices-4col">
+          <div class="choice-item">1　プレッシャー</div>
+          <div class="choice-item">2　インパクト</div>
+          <div class="choice-item">3　ダメージ</div>
+          <div class="choice-item">4　ショック</div>
+        </div>
+        <button class="btn-vocab" onclick="toggleVocab('vm-s4-14')">語彙</button>
+        <div class="vocab-memo" id="vm-s4-14"><span class="vocab-memo-label">📖 語彙メモ</span>インパクト＝dampak visual/kesan kuat（見た目に強い印象）／広告（こうこく）＝iklan／目立つ（めだつ）＝mencolok/menonjol／プレッシャー＝tekanan（pressure）／ダメージ＝kerusakan（damage）／ショック＝kejutan（shock）</div>
+        <button class="ans-btn" onclick="toggleAns('ans-s4-q14')">答えを見る</button>
+        <div class="ans-area" id="ans-s4-q14">
+          <div><span class="batsu">✗</span> 1　プレッシャー　→　tekanan（内面的なプレッシャーに使う、見た目の印象ではない）</div>
+          <div><span class="maru">○</span> 2　インパクト　→　dampak visual/kesan kuat（見た目に強い印象）✓正解</div>
+          <div><span class="batsu">✗</span> 3　ダメージ　→　kerusakan（被害・損傷であり広告には使わない）</div>
+          <div><span class="batsu">✗</span> 4　ショック　→　kejutan（驚き・衝撃であり視覚的印象ではない）</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q15 -->
+    <div class="mondai-card">
+      <div class="mondai-head">
+        <span class="mondai-num">15</span>
+        <div class="line-wrap" style="margin:0;">
+          <div class="line-text">
+            <ruby>仕事<rt>しごと</rt></ruby><ruby>熱心<rt>ねっしん</rt></ruby>でいつも<ruby>前向<rt>まえむ</rt></ruby>きな<ruby>彼女<rt>かのじょ</rt></ruby>と<ruby>話<rt>はなし</rt></ruby>をする<ruby>時間<rt>じかん</rt></ruby>は、とても（　　）だ。
+            <div class="sent-id" id="id-s4-q15">Waktu berbicara dengan dia yang selalu bersemangat dalam pekerjaan dan berpikiran positif sangatlah (　　).</div>
+          </div>
+          <div class="btn-group">
+            <button class="btn-r" onclick="toggleRuby(this)">ル</button>
+            <button class="btn-s" onclick="toggleSent('id-s4-q15',this)">訳</button>
+          </div>
+        </div>
+      </div>
+      <div class="mondai-body">
+        <div class="choices-4col">
+          <div class="choice-item">1　<ruby>開放的<rt>かいほうてき</rt></ruby></div>
+          <div class="choice-item">2　<ruby>意図的<rt>いとてき</rt></ruby></div>
+          <div class="choice-item">3　<ruby>好都合<rt>こうつごう</rt></ruby></div>
+          <div class="choice-item">4　<ruby>有意義<rt>ゆういぎ</rt></ruby></div>
+        </div>
+        <button class="btn-vocab" onclick="toggleVocab('vm-s4-15')">語彙</button>
+        <div class="vocab-memo" id="vm-s4-15"><span class="vocab-memo-label">📖 語彙メモ</span>有意義（ゆういぎ）＝bermakna/berharga（意味・価値がある）／仕事熱心（しごとねっしん）＝bersemangat dalam kerja／前向き（まえむき）＝berpikiran positif／開放的（かいほうてき）＝terbuka/bebas／意図的（いとてき）＝disengaja／好都合（こうつごう）＝menguntungkan/tepat waktu</div>
+        <button class="ans-btn" onclick="toggleAns('ans-s4-q15')">答えを見る</button>
+        <div class="ans-area" id="ans-s4-q15">
+          <div><span class="batsu">✗</span> 1　開放的　→　terbuka（開放的な性格など、時間の価値を表さない）</div>
+          <div><span class="batsu">✗</span> 2　意図的　→　disengaja（わざとする様子、時間には使わない）</div>
+          <div><span class="batsu">✗</span> 3　好都合　→　menguntungkan（都合がよい、意義とは別）</div>
+          <div><span class="maru">○</span> 4　有意義　→　bermakna/berharga（意味・価値がある時間）✓正解</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q16 -->
+    <div class="mondai-card">
+      <div class="mondai-head">
+        <span class="mondai-num">16</span>
+        <div class="line-wrap" style="margin:0;">
+          <div class="line-text">
+            <ruby>私<rt>わたし</rt></ruby>は<ruby>昔<rt>むかし</rt></ruby>から（　　）な<ruby>性格<rt>せいかく</rt></ruby>なので、やりたくない<ruby>事<rt>こと</rt></ruby>は<ruby>絶対<rt>ぜったい</rt></ruby>にやらない。
+            <div class="sent-id" id="id-s4-q16">Karena saya dari dulu memiliki sifat yang (　　), saya tidak akan melakukan hal yang tidak ingin dilakukan sama sekali.</div>
+          </div>
+          <div class="btn-group">
+            <button class="btn-r" onclick="toggleRuby(this)">ル</button>
+            <button class="btn-s" onclick="toggleSent('id-s4-q16',this)">訳</button>
+          </div>
+        </div>
+      </div>
+      <div class="mondai-body">
+        <div class="choices-4col">
+          <div class="choice-item">1　わがまま</div>
+          <div class="choice-item">2　あいまい</div>
+          <div class="choice-item">3　ありがち</div>
+          <div class="choice-item">4　よくばり</div>
+        </div>
+        <button class="btn-vocab" onclick="toggleVocab('vm-s4-16')">語彙</button>
+        <div class="vocab-memo" id="vm-s4-16"><span class="vocab-memo-label">📖 語彙メモ</span>わがまま（我がまま）＝egois/mau sendiri（自分の思い通りにしたがる）／性格（せいかく）＝sifat/karakter／絶対（ぜったい）＝sama sekali/pasti／あいまい（曖昧）＝ambigu/tidak jelas／ありがち＝sering terjadi/lazim／よくばり（欲張り）＝rakus/tamak</div>
+        <button class="ans-btn" onclick="toggleAns('ans-s4-q16')">答えを見る</button>
+        <div class="ans-area" id="ans-s4-q16">
+          <div><span class="maru">○</span> 1　わがまま　→　egois/mau sendiri（自分の思い通りにしたがる）✓正解</div>
+          <div><span class="batsu">✗</span> 2　あいまい　→　ambigu/tidak jelas（不明確な様子）</div>
+          <div><span class="batsu">✗</span> 3　ありがち　→　sering terjadi/lazim（よくあること）</div>
+          <div><span class="batsu">✗</span> 4　よくばり　→　rakus/tamak（欲が深い様子）</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q17 -->
+    <div class="mondai-card">
+      <div class="mondai-head">
+        <span class="mondai-num">17</span>
+        <div class="line-wrap" style="margin:0;">
+          <div class="line-text">
+            この<ruby>商品<rt>しょうひん</rt></ruby>は、ソファとしてだけでなくベッドとしての<ruby>機能<rt>きのう</rt></ruby>も（　　）。
+            <div class="sent-id" id="id-s4-q17">Produk ini tidak hanya sebagai sofa, tetapi juga (　　) fungsi sebagai tempat tidur.</div>
+          </div>
+          <div class="btn-group">
+            <button class="btn-r" onclick="toggleRuby(this)">ル</button>
+            <button class="btn-s" onclick="toggleSent('id-s4-q17',this)">訳</button>
+          </div>
+        </div>
+      </div>
+      <div class="mondai-body">
+        <div class="choices-4col">
+          <div class="choice-item">1　<ruby>挙<rt>あ</rt></ruby>げている</div>
+          <div class="choice-item">2　<ruby>兼<rt>か</rt></ruby>ねている</div>
+          <div class="choice-item">3　<ruby>活<rt>い</rt></ruby>かしている</div>
+          <div class="choice-item">4　<ruby>納<rt>おさ</rt></ruby>めている</div>
+        </div>
+        <button class="btn-vocab" onclick="toggleVocab('vm-s4-17')">語彙</button>
+        <div class="vocab-memo" id="vm-s4-17"><span class="vocab-memo-label">📖 語彙メモ</span>兼ねる（かねる）＝merangkap/sekaligus berfungsi sebagai（〜も兼ねている＝juga berfungsi sebagai〜）／機能（きのう）＝fungsi／挙げる（あげる）＝menyebutkan/mengangkat／活かす（いかす）＝memanfaatkan／納める（おさめる）＝menyimpan/membayar</div>
+        <button class="ans-btn" onclick="toggleAns('ans-s4-q17')">答えを見る</button>
+        <div class="ans-area" id="ans-s4-q17">
+          <div><span class="batsu">✗</span> 1　挙げている　→　menyebutkan/mengangkat（列挙する意味）</div>
+          <div><span class="maru">○</span> 2　兼ねている　→　merangkap/sekaligus berfungsi sebagai（〜も兼ねている）✓正解</div>
+          <div><span class="batsu">✗</span> 3　活かしている　→　memanfaatkan（活用する意味）</div>
+          <div><span class="batsu">✗</span> 4　納めている　→　menyimpan/membayar（収納・支払いの意味）</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q18 -->
+    <div class="mondai-card">
+      <div class="mondai-head">
+        <span class="mondai-num">18</span>
+        <div class="line-wrap" style="margin:0;">
+          <div class="line-text">
+            <ruby>第一志望<rt>だいいちしぼう</rt></ruby>の<ruby>大学<rt>だいがく</rt></ruby>に<ruby>落<rt>お</rt></ruby>ちて、（　　）している。
+            <div class="sent-id" id="id-s4-q18">Saya (　　) karena tidak diterima di universitas pilihan pertama.</div>
+          </div>
+          <div class="btn-group">
+            <button class="btn-r" onclick="toggleRuby(this)">ル</button>
+            <button class="btn-s" onclick="toggleSent('id-s4-q18',this)">訳</button>
+          </div>
+        </div>
+      </div>
+      <div class="mondai-body">
+        <div class="choices-4col">
+          <div class="choice-item">1　<ruby>悪化<rt>あっか</rt></ruby></div>
+          <div class="choice-item">2　<ruby>減点<rt>げんてん</rt></ruby></div>
+          <div class="choice-item">3　<ruby>混雑<rt>こんざつ</rt></ruby></div>
+          <div class="choice-item">4　<ruby>失望<rt>しつぼう</rt></ruby></div>
+        </div>
+        <button class="btn-vocab" onclick="toggleVocab('vm-s4-18')">語彙</button>
+        <div class="vocab-memo" id="vm-s4-18"><span class="vocab-memo-label">📖 語彙メモ</span>失望（しつぼう）＝kecewa/putus harapan（希望を失うこと）／第一志望（だいいちしぼう）＝pilihan pertama／落ちる（おちる）＝tidak lulus/tidak diterima／悪化（あっか）＝memburuk／減点（げんてん）＝pengurangan nilai／混雑（こんざつ）＝keramaian/kemacetan</div>
+        <button class="ans-btn" onclick="toggleAns('ans-s4-q18')">答えを見る</button>
+        <div class="ans-area" id="ans-s4-q18">
+          <div><span class="batsu">✗</span> 1　悪化　→　memburuk（状況が悪くなる、気持ちの表現ではない）</div>
+          <div><span class="batsu">✗</span> 2　減点　→　pengurangan nilai（点数を引く意味）</div>
+          <div><span class="batsu">✗</span> 3　混雑　→　keramaian/kemacetan（混んでいる状態）</div>
+          <div><span class="maru">○</span> 4　失望　→　kecewa/putus harapan（希望を失う）✓正解</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q19 -->
+    <div class="mondai-card">
+      <div class="mondai-head">
+        <span class="mondai-num">19</span>
+        <div class="line-wrap" style="margin:0;">
+          <div class="line-text">
+            <ruby>鍋<rt>なべ</rt></ruby>の<ruby>中<rt>なか</rt></ruby>の<ruby>水<rt>みず</rt></ruby>が（　　）して、からっぽになってしまった。
+            <div class="sent-id" id="id-s4-q19">Air di dalam panci (　　) dan menjadi kosong.</div>
+          </div>
+          <div class="btn-group">
+            <button class="btn-r" onclick="toggleRuby(this)">ル</button>
+            <button class="btn-s" onclick="toggleSent('id-s4-q19',this)">訳</button>
+          </div>
+        </div>
+      </div>
+      <div class="mondai-body">
+        <div class="choices-4col">
+          <div class="choice-item">1　<ruby>蒸発<rt>じょうはつ</rt></ruby></div>
+          <div class="choice-item">2　<ruby>解消<rt>かいしょう</rt></ruby></div>
+          <div class="choice-item">3　<ruby>発揮<rt>はっき</rt></ruby></div>
+          <div class="choice-item">4　<ruby>伝染<rt>でんせん</rt></ruby></div>
+        </div>
+        <button class="btn-vocab" onclick="toggleVocab('vm-s4-19')">語彙</button>
+        <div class="vocab-memo" id="vm-s4-19"><span class="vocab-memo-label">📖 語彙メモ</span>蒸発（じょうはつ）＝penguapan（水が蒸気になること）／鍋（なべ）＝panci／からっぽ＝kosong／解消（かいしょう）＝penyelesaian/menghilangkan（ストレス解消）／発揮（はっき）＝menunjukkan kemampuan（力を発揮）／伝染（でんせん）＝penularan/menular</div>
+        <button class="ans-btn" onclick="toggleAns('ans-s4-q19')">答えを見る</button>
+        <div class="ans-area" id="ans-s4-q19">
+          <div><span class="maru">○</span> 1　蒸発　→　penguapan（水が蒸気になる）✓正解</div>
+          <div><span class="batsu">✗</span> 2　解消　→　penyelesaian（問題を解決する、水には使わない）</div>
+          <div><span class="batsu">✗</span> 3　発揮　→　menunjukkan kemampuan（力を発揮、水には使わない）</div>
+          <div><span class="batsu">✗</span> 4　伝染　→　penularan（病気などが移る）</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q20 -->
+    <div class="mondai-card">
+      <div class="mondai-head">
+        <span class="mondai-num">20</span>
+        <div class="line-wrap" style="margin:0;">
+          <div class="line-text">
+            パーティーではひかえめな<ruby>色<rt>いろ</rt></ruby>のドレスを<ruby>着<rt>き</rt></ruby>ることが（　　）と<ruby>言<rt>い</rt></ruby>われている。
+            <div class="sent-id" id="id-s4-q20">Di pesta, memakai gaun dengan warna yang kalem dikatakan (　　).</div>
+          </div>
+          <div class="btn-group">
+            <button class="btn-r" onclick="toggleRuby(this)">ル</button>
+            <button class="btn-s" onclick="toggleSent('id-s4-q20',this)">訳</button>
+          </div>
+        </div>
+      </div>
+      <div class="mondai-body">
+        <div class="choices-4col">
+          <div class="choice-item">1　<ruby>頼<rt>たの</rt></ruby>もしい</div>
+          <div class="choice-item">2　<ruby>好<rt>この</rt></ruby>ましい</div>
+          <div class="choice-item">3　<ruby>等<rt>ひと</rt></ruby>しい</div>
+          <div class="choice-item">4　<ruby>快<rt>こころよ</rt></ruby>い</div>
+        </div>
+        <button class="btn-vocab" onclick="toggleVocab('vm-s4-20')">語彙</button>
+        <div class="vocab-memo" id="vm-s4-20"><span class="vocab-memo-label">📖 語彙メモ</span>好ましい（このましい）＝disukai/dianjurkan（望ましい・推奨される）／ひかえめ（控えめ）＝kalem/tidak mencolok／頼もしい（たのもしい）＝dapat diandalkan／等しい（ひとしい）＝sama/setara／快い（こころよい）＝menyenangkan/nyaman</div>
+        <button class="ans-btn" onclick="toggleAns('ans-s4-q20')">答えを見る</button>
+        <div class="ans-area" id="ans-s4-q20">
+          <div><span class="batsu">✗</span> 1　頼もしい　→　dapat diandalkan（内面的な信頼感、服装の規範ではない）</div>
+          <div><span class="maru">○</span> 2　好ましい　→　disukai/dianjurkan（望ましい・推奨される）✓正解</div>
+          <div><span class="batsu">✗</span> 3　等しい　→　sama/setara（同じである）</div>
+          <div><span class="batsu">✗</span> 4　快い　→　menyenangkan/nyaman（心地よい感覚）</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ===== 5 言い換え類義 ===== -->
+<div id="s5" class="section">
+  <div class="section-header">5｜言い換え類義</div>
+  <div class="section-body">
+
+    <div class="point-box">
+      <div class="point-label">ポイント</div>
+      <div class="line-wrap">
+        <div class="line-text">
+          ＿＿＿の<ruby>言葉<rt>ことば</rt></ruby>に<ruby>意味<rt>いみ</rt></ruby>が<ruby>最<rt>もっと</rt></ruby>も<ruby>近<rt>ちか</rt></ruby>いものを、1・2・3・4から<ruby>一<rt>ひと</rt></ruby>つ<ruby>選<rt>えら</rt></ruby>びなさい。
+          <div class="sent-id" id="id-p5-point">Pilih satu kata yang paling dekat artinya dengan kata bergaris bawah, dari pilihan 1・2・3・4.</div>
+        </div>
+        <div class="btn-group">
+          <button class="btn-r" onclick="toggleRuby(this)">ル</button>
+          <button class="btn-s" onclick="toggleSent('id-p5-point',this)">訳</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q21 -->
+    <div class="mondai-card">
+      <div class="mondai-head">
+        <span class="mondai-num">21</span>
+        <div class="line-wrap" style="margin:0;">
+          <div class="line-text">
+            <ruby>永野<rt>ながの</rt></ruby><ruby>選手<rt>せんしゅ</rt></ruby>は<u><ruby>機敏<rt>きびん</rt></ruby>な</u><ruby>動<rt>うご</rt></ruby>きで<ruby>相手<rt>あいて</rt></ruby>からボールをうばった。
+            <div class="sent-id" id="id-s5-q21">Pemain Nagano merebut bola dari lawan dengan gerakan yang <u>gesit</u>.</div>
+          </div>
+          <div class="btn-group">
+            <button class="btn-r" onclick="toggleRuby(this)">ル</button>
+            <button class="btn-s" onclick="toggleSent('id-s5-q21',this)">訳</button>
+          </div>
+        </div>
+      </div>
+      <div class="mondai-body">
+        <div class="choices-4col">
+          <div class="choice-item">1　<ruby>速<rt>はや</rt></ruby>い</div>
+          <div class="choice-item">2　<ruby>細<rt>こま</rt></ruby>かい</div>
+          <div class="choice-item">3　<ruby>特別<rt>とくべつ</rt></ruby>な</div>
+          <div class="choice-item">4　<ruby>上手<rt>じょうず</rt></ruby>な</div>
+        </div>
+        <button class="btn-vocab" onclick="toggleVocab('vm-s5-21')">語彙</button>
+        <div class="vocab-memo" id="vm-s5-21"><span class="vocab-memo-label">📖 語彙メモ</span>機敏（きびん）＝gesit/tangkas（すばやい動き）≒速い（はやい）／奪う（うばう）＝merebut／選手（せんしゅ）＝atlet/pemain／細かい（こまかい）＝halus/detail／特別な（とくべつな）＝istimewa</div>
+        <button class="ans-btn" onclick="toggleAns('ans-s5-q21')">答えを見る</button>
+        <div class="ans-area" id="ans-s5-q21">
+          <div><span class="maru">○</span> 1　速い　→　gesit/cepat（機敏≒速い）✓正解</div>
+          <div><span class="batsu">✗</span> 2　細かい　→　halus/detail（機敏≠細かい）</div>
+          <div><span class="batsu">✗</span> 3　特別な　→　istimewa（機敏とは無関係）</div>
+          <div><span class="batsu">✗</span> 4　上手な　→　mahir（上手≠機敏）</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q22 -->
+    <div class="mondai-card">
+      <div class="mondai-head">
+        <span class="mondai-num">22</span>
+        <div class="line-wrap" style="margin:0;">
+          <div class="line-text">
+            <ruby>長年<rt>ながねん</rt></ruby><ruby>戦<rt>たたか</rt></ruby>い<ruby>続<rt>つづ</rt></ruby>けた<ruby>重<rt>おも</rt></ruby>い<ruby>病気<rt>びょうき</rt></ruby>を<u><ruby>乗<rt>の</rt></ruby>り<ruby>越<rt>こ</rt></ruby>えた</u>。
+            <div class="sent-id" id="id-s5-q22">Berhasil <u>mengatasi</u> penyakit berat yang sudah dilawan selama bertahun-tahun.</div>
+          </div>
+          <div class="btn-group">
+            <button class="btn-r" onclick="toggleRuby(this)">ル</button>
+            <button class="btn-s" onclick="toggleSent('id-s5-q22',this)">訳</button>
+          </div>
+        </div>
+      </div>
+      <div class="mondai-body">
+        <div class="choices-4col">
+          <div class="choice-item">1　<ruby>告白<rt>こくはく</rt></ruby>した</div>
+          <div class="choice-item">2　<ruby>理解<rt>りかい</rt></ruby>した</div>
+          <div class="choice-item">3　なおした</div>
+          <div class="choice-item">4　あきらめた</div>
+        </div>
+        <button class="btn-vocab" onclick="toggleVocab('vm-s5-22')">語彙</button>
+        <div class="vocab-memo" id="vm-s5-22"><span class="vocab-memo-label">📖 語彙メモ</span>乗り越える（のりこえる）＝mengatasi/melewati（困難を超えること）≒なおした（治した＝menyembuhkan）／長年（ながねん）＝selama bertahun-tahun／告白（こくはく）＝pengakuan/confess／あきらめる＝menyerah</div>
+        <button class="ans-btn" onclick="toggleAns('ans-s5-q22')">答えを見る</button>
+        <div class="ans-area" id="ans-s5-q22">
+          <div><span class="batsu">✗</span> 1　告白した　→　pengakuan/confess（乗り越えた≠告白した）</div>
+          <div><span class="batsu">✗</span> 2　理解した　→　memahami（乗り越えた≠理解した）</div>
+          <div><span class="maru">○</span> 3　なおした　→　menyembuhkan（乗り越えた≒治した）✓正解</div>
+          <div><span class="batsu">✗</span> 4　あきらめた　→　menyerah（意味が逆）</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q23 -->
+    <div class="mondai-card">
+      <div class="mondai-head">
+        <span class="mondai-num">23</span>
+        <div class="line-wrap" style="margin:0;">
+          <div class="line-text">
+            <ruby>何度<rt>なんど</rt></ruby>も<ruby>会<rt>あ</rt></ruby>っているんだから、<u>せめて</u><ruby>名前<rt>なまえ</rt></ruby>くらい<ruby>覚<rt>おぼ</rt></ruby>えて<ruby>欲<rt>ほ</rt></ruby>しい。
+            <div class="sent-id" id="id-s5-q23">Karena sudah bertemu berkali-kali, <u>setidaknya</u> aku ingin kamu mengingat namaku.</div>
+          </div>
+          <div class="btn-group">
+            <button class="btn-r" onclick="toggleRuby(this)">ル</button>
+            <button class="btn-s" onclick="toggleSent('id-s5-q23',this)">訳</button>
+          </div>
+        </div>
+      </div>
+      <div class="mondai-body">
+        <div class="choices-4col">
+          <div class="choice-item">1　そろそろ</div>
+          <div class="choice-item">2　<ruby>最低<rt>さいてい</rt></ruby>でも</div>
+          <div class="choice-item">3　<ruby>努力<rt>どりょく</rt></ruby>して</div>
+          <div class="choice-item">4　できれば</div>
+        </div>
+        <button class="btn-vocab" onclick="toggleVocab('vm-s5-23')">語彙</button>
+        <div class="vocab-memo" id="vm-s5-23"><span class="vocab-memo-label">📖 語彙メモ</span>せめて＝setidaknya/minimal（最低限の要求を表す）≒最低でも（さいていでも）／何度も（なんども）＝berkali-kali／そろそろ＝sudah waktunya/sebentar lagi／できれば＝kalau bisa</div>
+        <button class="ans-btn" onclick="toggleAns('ans-s5-q23')">答えを見る</button>
+        <div class="ans-area" id="ans-s5-q23">
+          <div><span class="batsu">✗</span> 1　そろそろ　→　sudah waktunya/sebentar lagi（せめて≠そろそろ）</div>
+          <div><span class="maru">○</span> 2　最低でも　→　setidaknya/minimal（せめて≒最低でも）✓正解</div>
+          <div><span class="batsu">✗</span> 3　努力して　→　dengan usaha（せめて≠努力して）</div>
+          <div><span class="batsu">✗</span> 4　できれば　→　kalau bisa（せめて≠できれば）</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q24 -->
+    <div class="mondai-card">
+      <div class="mondai-head">
+        <span class="mondai-num">24</span>
+        <div class="line-wrap" style="margin:0;">
+          <div class="line-text">
+            アンケートの<ruby>結果<rt>けっか</rt></ruby>を<u><ruby>活用<rt>かつよう</rt></ruby>して</u>、<ruby>商品<rt>しょうひん</rt></ruby>の<ruby>開発<rt>かいはつ</rt></ruby>を<ruby>進<rt>すす</rt></ruby>める。
+            <div class="sent-id" id="id-s5-q24"><u>Memanfaatkan</u> hasil kuesioner untuk mengembangkan produk.</div>
+          </div>
+          <div class="btn-group">
+            <button class="btn-r" onclick="toggleRuby(this)">ル</button>
+            <button class="btn-s" onclick="toggleSent('id-s5-q24',this)">訳</button>
+          </div>
+        </div>
+      </div>
+      <div class="mondai-body">
+        <div class="choices-4col">
+          <div class="choice-item">1　<ruby>使<rt>つか</rt></ruby>って</div>
+          <div class="choice-item">2　まとめて</div>
+          <div class="choice-item">3　<ruby>理解<rt>りかい</rt></ruby>して</div>
+          <div class="choice-item">4　<ruby>見<rt>み</rt></ruby>て</div>
+        </div>
+        <button class="btn-vocab" onclick="toggleVocab('vm-s5-24')">語彙</button>
+        <div class="vocab-memo" id="vm-s5-24"><span class="vocab-memo-label">📖 語彙メモ</span>活用する（かつようする）＝memanfaatkan/menggunakan secara efektif（うまく使うこと）≒使う（つかう）／アンケート＝kuesioner／結果（けっか）＝hasil／開発（かいはつ）＝pengembangan</div>
+        <button class="ans-btn" onclick="toggleAns('ans-s5-q24')">答えを見る</button>
+        <div class="ans-area" id="ans-s5-q24">
+          <div><span class="maru">○</span> 1　使って　→　memanfaatkan（活用して≒使って）✓正解</div>
+          <div><span class="batsu">✗</span> 2　まとめて　→　merangkum（活用≠まとめる）</div>
+          <div><span class="batsu">✗</span> 3　理解して　→　memahami（活用≠理解する）</div>
+          <div><span class="batsu">✗</span> 4　見て　→　melihat（活用≠見る）</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q25 -->
+    <div class="mondai-card">
+      <div class="mondai-head">
+        <span class="mondai-num">25</span>
+        <div class="line-wrap" style="margin:0;">
+          <div class="line-text">
+            お<ruby>金<rt>かね</rt></ruby>がない<ruby>人々<rt>ひとびと</rt></ruby>を<u><ruby>救<rt>すく</rt></ruby>う</u>ために、<ruby>新<rt>あたら</rt></ruby>しいサービスを<ruby>開発<rt>かいはつ</rt></ruby>した。
+            <div class="sent-id" id="id-s5-q25">Mengembangkan layanan baru untuk <u>menolong</u> orang-orang yang tidak punya uang.</div>
+          </div>
+          <div class="btn-group">
+            <button class="btn-r" onclick="toggleRuby(this)">ル</button>
+            <button class="btn-s" onclick="toggleSent('id-s5-q25',this)">訳</button>
+          </div>
+        </div>
+      </div>
+      <div class="mondai-body">
+        <div class="choices-4col">
+          <div class="choice-item">1　<ruby>探<rt>さが</rt></ruby>す</div>
+          <div class="choice-item">2　<ruby>減<rt>へ</rt></ruby>らす</div>
+          <div class="choice-item">3　<ruby>集<rt>あつ</rt></ruby>める</div>
+          <div class="choice-item">4　<ruby>助<rt>たす</rt></ruby>ける</div>
+        </div>
+        <button class="btn-vocab" onclick="toggleVocab('vm-s5-25')">語彙</button>
+        <div class="vocab-memo" id="vm-s5-25"><span class="vocab-memo-label">📖 語彙メモ</span>救う（すくう）＝menyelamatkan/menolong（危機から助けること）≒助ける（たすける）／人々（ひとびと）＝orang-orang／開発（かいはつ）＝pengembangan／探す（さがす）＝mencari／減らす（へらす）＝mengurangi</div>
+        <button class="ans-btn" onclick="toggleAns('ans-s5-q25')">答えを見る</button>
+        <div class="ans-area" id="ans-s5-q25">
+          <div><span class="batsu">✗</span> 1　探す　→　mencari（救う≠探す）</div>
+          <div><span class="batsu">✗</span> 2　減らす　→　mengurangi（救う≠減らす）</div>
+          <div><span class="batsu">✗</span> 3　集める　→　mengumpulkan（救う≠集める）</div>
+          <div><span class="maru">○</span> 4　助ける　→　menolong（救う≒助ける）✓正解</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ===== 6 用法 ===== -->
+<div id="s6" class="section">
+  <div class="section-header">6｜用法</div>
+  <div class="section-body">
+
+    <div class="point-box">
+      <div class="point-label">ポイント</div>
+      <div class="line-wrap">
+        <div class="line-text">
+          <ruby>次<rt>つぎ</rt></ruby>の<ruby>言葉<rt>ことば</rt></ruby>の<ruby>使<rt>つか</rt></ruby>い<ruby>方<rt>かた</rt></ruby>として<ruby>最<rt>もっと</rt></ruby>もよいものを、1・2・3・4から<ruby>一<rt>ひと</rt></ruby>つ<ruby>選<rt>えら</rt></ruby>びなさい。
+          <div class="sent-id" id="id-p6-point">Pilih satu kalimat yang paling tepat penggunaan kata berikut ini, dari pilihan 1・2・3・4.</div>
+        </div>
+        <div class="btn-group">
+          <button class="btn-r" onclick="toggleRuby(this)">ル</button>
+          <button class="btn-s" onclick="toggleSent('id-p6-point',this)">訳</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q26 開催 -->
+    <div class="mondai-card">
+      <div class="mondai-head"><span class="mondai-num">26</span><b style="margin-left:4px;"><ruby>開催<rt>かいさい</rt></ruby></b></div>
+      <div class="mondai-body">
+        <div class="line-wrap"><div class="line-text">1　20<ruby>年<rt>ねん</rt></ruby><ruby>勤<rt>つと</rt></ruby>めた<ruby>会社<rt>かいしゃ</rt></ruby>を<ruby>思<rt>おも</rt></ruby>い<ruby>切<rt>き</rt></ruby>って<ruby>退職<rt>たいしょく</rt></ruby>し、<ruby>自分<rt>じぶん</rt></ruby>の<ruby>会社<rt>かいしゃ</rt></ruby>を<ruby>開催<rt>かいさい</rt></ruby>した。<div class="sent-id" id="id-s6-q26-c1">1　Dia dengan berani berhenti dari perusahaan yang sudah 20 tahun dijalankan, dan "mengadakan" perusahaannya sendiri. （開催→設立: kurang tepat）</div></div><div class="btn-group"><button class="btn-r" onclick="toggleRuby(this)">ル</button><button class="btn-s" onclick="toggleSent('id-s6-q26-c1',this)">訳</button></div></div>
+        <div class="line-wrap"><div class="line-text">2　<ruby>来年<rt>らいねん</rt></ruby>、<ruby>東京<rt>とうきょう</rt></ruby>でオリンピックが<ruby>開催<rt>かいさい</rt></ruby>される<ruby>予定<rt>よてい</rt></ruby>です。<div class="sent-id" id="id-s6-q26-c2">2　Tahun depan, Olimpiade rencananya akan diadakan di Tokyo.</div></div><div class="btn-group"><button class="btn-r" onclick="toggleRuby(this)">ル</button><button class="btn-s" onclick="toggleSent('id-s6-q26-c2',this)">訳</button></div></div>
+        <div class="line-wrap"><div class="line-text">3　アメリカで<ruby>人気<rt>にんき</rt></ruby>があるハンバーガーショップが<ruby>新宿<rt>しんじゅく</rt></ruby>で<ruby>開催<rt>かいさい</rt></ruby>するらしい。<div class="sent-id" id="id-s6-q26-c3">3　Tampaknya toko burger yang populer di Amerika akan "diadakan" di Shinjuku. （開催→開店/オープン: kurang tepat）</div></div><div class="btn-group"><button class="btn-r" onclick="toggleRuby(this)">ル</button><button class="btn-s" onclick="toggleSent('id-s6-q26-c3',this)">訳</button></div></div>
+        <div class="line-wrap"><div class="line-text">4　<ruby>健康<rt>けんこう</rt></ruby>のためにジムで<ruby>運動<rt>うんどう</rt></ruby>を<ruby>開催<rt>かいさい</rt></ruby>したが、なかなか<ruby>続<rt>つづ</rt></ruby>かなかった。<div class="sent-id" id="id-s6-q26-c4">4　Saya "mengadakan" olahraga di gym untuk kesehatan, namun tidak bisa bertahan lama. （開催→始める: kurang tepat）</div></div><div class="btn-group"><button class="btn-r" onclick="toggleRuby(this)">ル</button><button class="btn-s" onclick="toggleSent('id-s6-q26-c4',this)">訳</button></div></div>
+        <button class="btn-vocab" onclick="toggleVocab('vm-s6-26')">語彙</button>
+        <div class="vocab-memo" id="vm-s6-26"><span class="vocab-memo-label">📖 語彙メモ</span>開催（かいさい）＝penyelenggaraan/mengadakan（イベント・大会などを行うこと）／（1→設立＝mendirikan／3→開店・オープン＝membuka toko／4→始める＝mulai）</div>
+        <button class="ans-btn" onclick="toggleAns('ans-s6-q26')">答えを見る</button>
+        <div class="ans-area" id="ans-s6-q26">
+          <div><span class="batsu">✗</span> 1　→　会社を作るには「開催」でなく「設立」（mendirikan perusahaan）を使う</div>
+          <div><span class="maru">○</span> 2　→　オリンピックなど大規模イベントに「開催」が正しい（menyelenggarakan event besar）✓正解</div>
+          <div><span class="batsu">✗</span> 3　→　店のオープンには「開催」でなく「開店」（membuka toko）を使う</div>
+          <div><span class="batsu">✗</span> 4　→　運動を始めるには「開催」でなく「始める」（memulai）を使う</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q27 行為 -->
+    <div class="mondai-card">
+      <div class="mondai-head"><span class="mondai-num">27</span><b style="margin-left:4px;"><ruby>行為<rt>こうい</rt></ruby></b></div>
+      <div class="mondai-body">
+        <div class="line-wrap"><div class="line-text">1　パソコンで<ruby>行為<rt>こうい</rt></ruby>することができる<ruby>方<rt>かた</rt></ruby>を<ruby>募集<rt>ぼしゅう</rt></ruby>しています。<div class="sent-id" id="id-s6-q27-c1">1　Kami mencari orang yang bisa "bertindak" dengan komputer. （行為→操作: kurang tepat）</div></div><div class="btn-group"><button class="btn-r" onclick="toggleRuby(this)">ル</button><button class="btn-s" onclick="toggleSent('id-s6-q27-c1',this)">訳</button></div></div>
+        <div class="line-wrap"><div class="line-text">2　<ruby>携帯電話<rt>けいたいでんわ</rt></ruby>の<ruby>行為<rt>こうい</rt></ruby>がおそくて<ruby>使<rt>つか</rt></ruby>いにくいので、<ruby>買<rt>か</rt></ruby>い<ruby>替<rt>か</rt></ruby>えようと<ruby>思<rt>おも</rt></ruby>っている。<div class="sent-id" id="id-s6-q27-c2">2　"Tindakan" ponsel lambat dan sulit digunakan, jadi saya berpikir untuk menggantinya. （行為→動作/処理速度: kurang tepat）</div></div><div class="btn-group"><button class="btn-r" onclick="toggleRuby(this)">ル</button><button class="btn-s" onclick="toggleSent('id-s6-q27-c2',this)">訳</button></div></div>
+        <div class="line-wrap"><div class="line-text">3　<ruby>電車<rt>でんしゃ</rt></ruby>の<ruby>中<rt>なか</rt></ruby>で<ruby>大声<rt>おおごえ</rt></ruby>で<ruby>話<rt>はな</rt></ruby>すことは、<ruby>車内<rt>しゃない</rt></ruby>にいる<ruby>人<rt>ひと</rt></ruby>たちの<ruby>迷惑<rt>めいわく</rt></ruby>になる<ruby>行為<rt>こうい</rt></ruby>である。<div class="sent-id" id="id-s6-q27-c3">3　Berbicara keras-keras di dalam kereta adalah tindakan yang mengganggu orang-orang di dalam gerbong.</div></div><div class="btn-group"><button class="btn-r" onclick="toggleRuby(this)">ル</button><button class="btn-s" onclick="toggleSent('id-s6-q27-c3',this)">訳</button></div></div>
+        <div class="line-wrap"><div class="line-text">4　やりたいことがあるなら、<ruby>考<rt>かんが</rt></ruby>えてばかりいないでとにかく<ruby>行為<rt>こうい</rt></ruby>に<ruby>移<rt>うつ</rt></ruby>すことが<ruby>大切<rt>たいせつ</rt></ruby>だ。<div class="sent-id" id="id-s6-q27-c4">4　Jika ada yang ingin dilakukan, penting untuk tidak hanya berpikir tetapi segera beralih ke "tindakan". （行為→行動: kurang tepat）</div></div><div class="btn-group"><button class="btn-r" onclick="toggleRuby(this)">ル</button><button class="btn-s" onclick="toggleSent('id-s6-q27-c4',this)">訳</button></div></div>
+        <button class="btn-vocab" onclick="toggleVocab('vm-s6-27')">語彙</button>
+        <div class="vocab-memo" id="vm-s6-27"><span class="vocab-memo-label">📖 語彙メモ</span>行為（こうい）＝tindakan/perbuatan（特定の行動・振る舞い）／迷惑（めいわく）＝gangguan/tidak menyenangkan／（1→操作＝pengoperasian／2→動作・処理速度＝kecepatan proses／4→行動＝tindakan umum）</div>
+        <button class="ans-btn" onclick="toggleAns('ans-s6-q27')">答えを見る</button>
+        <div class="ans-area" id="ans-s6-q27">
+          <div><span class="batsu">✗</span> 1　→　コンピューター操作には「行為」でなく「操作」（pengoperasian）を使う</div>
+          <div><span class="batsu">✗</span> 2　→　携帯の処理速度には「行為」でなく「動作・処理速度」を使う</div>
+          <div><span class="maru">○</span> 3　→　電車内で大声で話すという社会的に評価される「行為」の正しい用法（tindakan yang dinilai secara sosial）✓正解</div>
+          <div><span class="batsu">✗</span> 4　→　「行動に移す」には「行為」でなく「行動」（tindakan umum）を使う</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q28 やむを得ない -->
+    <div class="mondai-card">
+      <div class="mondai-head"><span class="mondai-num">28</span><b style="margin-left:4px;">やむを<ruby>得<rt>え</rt></ruby>ない</b></div>
+      <div class="mondai-body">
+        <div class="line-wrap"><div class="line-text">1　いつも<ruby>時間<rt>じかん</rt></ruby>をきっちり<ruby>守<rt>まも</rt></ruby>る<ruby>彼女<rt>かのじょ</rt></ruby>が<ruby>遅刻<rt>ちこく</rt></ruby>するなんて、<ruby>何<rt>なに</rt></ruby>かやむを<ruby>得<rt>え</rt></ruby>ない<ruby>理由<rt>りゆう</rt></ruby>があったのだろう。<div class="sent-id" id="id-s6-q28-c1">1　Karena dia yang selalu tepat waktu kok bisa terlambat, pasti ada alasan yang tidak bisa dihindari.</div></div><div class="btn-group"><button class="btn-r" onclick="toggleRuby(this)">ル</button><button class="btn-s" onclick="toggleSent('id-s6-q28-c1',this)">訳</button></div></div>
+        <div class="line-wrap"><div class="line-text">2　<ruby>雨<rt>あめ</rt></ruby>の<ruby>時期<rt>じき</rt></ruby>は、<ruby>一度<rt>いちど</rt></ruby><ruby>雨<rt>あめ</rt></ruby>が<ruby>降<rt>ふ</rt></ruby>り<ruby>始<rt>はじ</rt></ruby>めるとなかなかやむを<ruby>得<rt>え</rt></ruby>ない。<div class="sent-id" id="id-s6-q28-c2">2　Di musim hujan, sekali hujan mulai turun sulit untuk "tidak bisa dihindari". （やむを得ない→やまない: kurang tepat）</div></div><div class="btn-group"><button class="btn-r" onclick="toggleRuby(this)">ル</button><button class="btn-s" onclick="toggleSent('id-s6-q28-c2',this)">訳</button></div></div>
+        <div class="line-wrap"><div class="line-text">3　<ruby>試験<rt>しけん</rt></ruby>に<ruby>合格<rt>ごうかく</rt></ruby>するためにできることは<ruby>全部<rt>ぜんぶ</rt></ruby>やったが、<ruby>結局<rt>けっきょく</rt></ruby>やむを<ruby>得<rt>え</rt></ruby>なかった。<div class="sent-id" id="id-s6-q28-c3">3　Saya sudah melakukan semua yang bisa dilakukan untuk lulus ujian, tapi akhirnya "tidak bisa dihindari". （やむを得ない→だめだった/合格できなかった: kurang tepat）</div></div><div class="btn-group"><button class="btn-r" onclick="toggleRuby(this)">ル</button><button class="btn-s" onclick="toggleSent('id-s6-q28-c3',this)">訳</button></div></div>
+        <div class="line-wrap"><div class="line-text">4　<ruby>日本語<rt>にほんご</rt></ruby>がやむを<ruby>得<rt>え</rt></ruby>ないので、<ruby>日本<rt>にほん</rt></ruby>へ<ruby>旅行<rt>りょこう</rt></ruby>に<ruby>行<rt>い</rt></ruby>くときは<ruby>必<rt>かなら</rt></ruby>ず<ruby>日本語<rt>にほんご</rt></ruby>ができる<ruby>友達<rt>ともだち</rt></ruby>と<ruby>一緒<rt>いっしょ</rt></ruby>に<ruby>行<rt>い</rt></ruby>く。<div class="sent-id" id="id-s6-q28-c4">4　Bahasa Jepang saya "tidak bisa dihindari", jadi saat pergi ke Jepang saya selalu pergi bersama teman yang bisa bahasa Jepang. （やむを得ない→得意じゃない/苦手: kurang tepat）</div></div><div class="btn-group"><button class="btn-r" onclick="toggleRuby(this)">ル</button><button class="btn-s" onclick="toggleSent('id-s6-q28-c4',this)">訳</button></div></div>
+        <button class="btn-vocab" onclick="toggleVocab('vm-s6-28')">語彙</button>
+        <div class="vocab-memo" id="vm-s6-28"><span class="vocab-memo-label">📖 語彙メモ</span>やむを得ない＝tidak bisa dihindari/terpaksa（仕方がない・避けられない理由がある）／遅刻（ちこく）＝keterlambatan／（2→やまない＝tidak berhenti／3→だめだった＝tidak berhasil／4→苦手＝tidak mahir）</div>
+        <button class="ans-btn" onclick="toggleAns('ans-s6-q28')">答えを見る</button>
+        <div class="ans-area" id="ans-s6-q28">
+          <div><span class="maru">○</span> 1　→　不可抗力で遅刻した理由として「やむを得ない」の正しい用法（tidak bisa dihindari）✓正解</div>
+          <div><span class="batsu">✗</span> 2　→　「やまない」（降り続ける＝tidak berhenti）と混同した誤用</div>
+          <div><span class="batsu">✗</span> 3　→　「できなかった・合格できなかった」の意味で使うのは誤用</div>
+          <div><span class="batsu">✗</span> 4　→　「苦手・得意じゃない」の意味で使うのは誤用</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q29 ただちに -->
+    <div class="mondai-card">
+      <div class="mondai-head"><span class="mondai-num">29</span><b style="margin-left:4px;">ただちに</b></div>
+      <div class="mondai-body">
+        <div class="line-wrap"><div class="line-text">1　<ruby>携帯電話<rt>けいたいでんわ</rt></ruby>で<ruby>動画<rt>どうが</rt></ruby>を<ruby>見<rt>み</rt></ruby>ていると、ただちにインターネットが<ruby>使<rt>つか</rt></ruby>えなくなってしまった。<div class="sent-id" id="id-s6-q29-c1">1　Saat menonton video di ponsel, internet "langsung" tidak bisa digunakan. （ただちに→そのうち/やがて: kurang tepat）</div></div><div class="btn-group"><button class="btn-r" onclick="toggleRuby(this)">ル</button><button class="btn-s" onclick="toggleSent('id-s6-q29-c1',this)">訳</button></div></div>
+        <div class="line-wrap"><div class="line-text">2　<ruby>会議<rt>かいぎ</rt></ruby>の<ruby>準備<rt>じゅんび</rt></ruby>をしなければならなかったので、いつもよりただちに<ruby>出勤<rt>しゅっきん</rt></ruby>した。<div class="sent-id" id="id-s6-q29-c2">2　Karena harus mempersiapkan rapat, saya berangkat kerja "seketika itu juga" lebih awal dari biasanya. （ただちに→早めに: kurang tepat）</div></div><div class="btn-group"><button class="btn-r" onclick="toggleRuby(this)">ル</button><button class="btn-s" onclick="toggleSent('id-s6-q29-c2',this)">訳</button></div></div>
+        <div class="line-wrap"><div class="line-text">3　<ruby>息子<rt>むすこ</rt></ruby>はこの<ruby>一年<rt>いちねん</rt></ruby>でただちに<ruby>身長<rt>しんちょう</rt></ruby>が<ruby>伸<rt>の</rt></ruby>びた。<div class="sent-id" id="id-s6-q29-c3">3　Putra saya tinggi badannya bertumbuh "segera" dalam satu tahun ini. （ただちに→ぐんと/かなり: kurang tepat）</div></div><div class="btn-group"><button class="btn-r" onclick="toggleRuby(this)">ル</button><button class="btn-s" onclick="toggleSent('id-s6-q29-c3',this)">訳</button></div></div>
+        <div class="line-wrap"><div class="line-text">4　<ruby>地震<rt>じしん</rt></ruby>が<ruby>起<rt>お</rt></ruby>きたら<ruby>海<rt>うみ</rt></ruby>から<ruby>離<rt>はな</rt></ruby>れ、ただちに<ruby>安全<rt>あんぜん</rt></ruby>なところに<ruby>避難<rt>ひなん</rt></ruby>してください。<div class="sent-id" id="id-s6-q29-c4">4　Jika terjadi gempa, menjauhlah dari laut dan segera mengungsi ke tempat yang aman.</div></div><div class="btn-group"><button class="btn-r" onclick="toggleRuby(this)">ル</button><button class="btn-s" onclick="toggleSent('id-s6-q29-c4',this)">訳</button></div></div>
+        <button class="btn-vocab" onclick="toggleVocab('vm-s6-29')">語彙</button>
+        <div class="vocab-memo" id="vm-s6-29"><span class="vocab-memo-label">📖 語彙メモ</span>ただちに（直ちに）＝segera/langsung（すぐに・遅れることなく）／避難（ひなん）＝pengungsian／地震（じしん）＝gempa bumi／（1→その後＝setelah itu／2→早めに＝lebih awal／3→ぐんと・かなり＝sangat/banyak）</div>
+        <button class="ans-btn" onclick="toggleAns('ans-s6-q29')">答えを見る</button>
+        <div class="ans-area" id="ans-s6-q29">
+          <div><span class="batsu">✗</span> 1　→　「その後で・やがて」の意味で使っており誤用（ただちに＝即座に）</div>
+          <div><span class="batsu">✗</span> 2　→　「早めに」の意味で使っており誤り（ただちに≠早めに）</div>
+          <div><span class="batsu">✗</span> 3　→　「ぐんと・かなり」の程度副詞と混同（ただちに≠程度を表す副詞）</div>
+          <div><span class="maru">○</span> 4　→　緊急時に「すぐに」避難するという正しい用法（segera mengungsi）✓正解</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q30 省く -->
+    <div class="mondai-card">
+      <div class="mondai-head"><span class="mondai-num">30</span><b style="margin-left:4px;"><ruby>省<rt>はぶ</rt></ruby>く</b></div>
+      <div class="mondai-body">
+        <div class="line-wrap"><div class="line-text">1　この<ruby>店<rt>みせ</rt></ruby>では<ruby>買<rt>か</rt></ruby>ったズボンが<ruby>長<rt>なが</rt></ruby>すぎる<ruby>場合<rt>ばあい</rt></ruby>、<ruby>無料<rt>むりょう</rt></ruby>で<ruby>省<rt>はぶ</rt></ruby>いてもらうことができる。<div class="sent-id" id="id-s6-q30-c1">1　Di toko ini, jika celana yang dibeli terlalu panjang, bisa "dilewati/dihilangkan" secara gratis. （省く→直す/詰める: kurang tepat）</div></div><div class="btn-group"><button class="btn-r" onclick="toggleRuby(this)">ル</button><button class="btn-s" onclick="toggleSent('id-s6-q30-c1',this)">訳</button></div></div>
+        <div class="line-wrap"><div class="line-text">2　<ruby>店<rt>みせ</rt></ruby>での<ruby>販売<rt>はんばい</rt></ruby>を<ruby>全<rt>すべ</rt></ruby>て<ruby>省<rt>はぶ</rt></ruby>いて、オンラインで<ruby>商品<rt>しょうひん</rt></ruby>を<ruby>売<rt>う</rt></ruby>ることに<ruby>決<rt>き</rt></ruby>めた。<div class="sent-id" id="id-s6-q30-c2">2　Memutuskan untuk menjual produk secara online dengan menghilangkan semua penjualan di toko. （省く→やめる/廃止する: kurang tepat）</div></div><div class="btn-group"><button class="btn-r" onclick="toggleRuby(this)">ル</button><button class="btn-s" onclick="toggleSent('id-s6-q30-c2',this)">訳</button></div></div>
+        <div class="line-wrap"><div class="line-text">3　<ruby>電子<rt>でんし</rt></ruby>レンジをうまく<ruby>使<rt>つか</rt></ruby>えば、<ruby>料理<rt>りょうり</rt></ruby>の<ruby>手間<rt>てま</rt></ruby>を<ruby>省<rt>はぶ</rt></ruby>くことができる。<div class="sent-id" id="id-s6-q30-c3">3　Dengan menggunakan microwave dengan baik, bisa menghemat tenaga dalam memasak.</div></div><div class="btn-group"><button class="btn-r" onclick="toggleRuby(this)">ル</button><button class="btn-s" onclick="toggleSent('id-s6-q30-c3',this)">訳</button></div></div>
+        <div class="line-wrap"><div class="line-text">4　<ruby>社員<rt>しゃいん</rt></ruby>の<ruby>労働時間<rt>ろうどうじかん</rt></ruby>を8<ruby>時間<rt>じかん</rt></ruby>から7<ruby>時間<rt>じかん</rt></ruby>に<ruby>省<rt>はぶ</rt></ruby>くと、<ruby>生産性<rt>せいさんせい</rt></ruby>が<ruby>向上<rt>こうじょう</rt></ruby>した。<div class="sent-id" id="id-s6-q30-c4">4　Ketika jam kerja karyawan "dihilangkan" dari 8 jam menjadi 7 jam, produktivitas meningkat. （省く→減らす/短縮する: kurang tepat）</div></div><div class="btn-group"><button class="btn-r" onclick="toggleRuby(this)">ル</button><button class="btn-s" onclick="toggleSent('id-s6-q30-c4',this)">訳</button></div></div>
+        <button class="btn-vocab" onclick="toggleVocab('vm-s6-30')">語彙</button>
+        <div class="vocab-memo" id="vm-s6-30"><span class="vocab-memo-label">📖 語彙メモ</span>省く（はぶく）＝menghemat/menghilangkan yang tidak perlu（手間・無駄なステップを減らすこと）／手間（てま）＝tenaga/usaha／電子レンジ（でんしレンジ）＝microwave／生産性（せいさんせい）＝produktivitas／（1→直す・詰める＝memperbaiki/mempersingkat／4→減らす＝mengurangi）</div>
+        <button class="ans-btn" onclick="toggleAns('ans-s6-q30')">答えを見る</button>
+        <div class="ans-area" id="ans-s6-q30">
+          <div><span class="batsu">✗</span> 1　→　ズボンの丈直しには「省く」でなく「直す・詰める」（memperbaiki）を使う</div>
+          <div><span class="batsu">✗</span> 2　→　販売をやめるには「省く」でなく「やめる・廃止する」を使う</div>
+          <div><span class="maru">○</span> 3　→　「手間を省く」が正しい用法（menghemat tenaga/langkah yang tidak perlu）✓正解</div>
+          <div><span class="batsu">✗</span> 4　→　労働時間を減らすには「省く」でなく「減らす・短縮する」（mengurangi）を使う</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+</main>
+
+<script>
+(function() {
+  var header = document.querySelector('header');
+  var nav = document.querySelector('nav');
+  if (header && nav) nav.style.top = header.offsetHeight + 'px';
+})();
+
+function toggleVocab(id) {
+  var el = document.getElementById(id);
+  if (!el) return;
+  el.classList.toggle('show');
+  var btn = el.previousElementSibling;
+  if (btn && btn.classList.contains('btn-vocab')) {
+    btn.textContent = el.classList.contains('show') ? '閉じる' : '語彙';
+  }
+}
+
+function toggleRuby(btn) {
+  var lineWrap = btn.closest('.line-wrap') || btn.closest('.rei-box') || btn.closest('.mondai-head') || btn.closest('.mondai-body') || btn.closest('.point-box');
+  if (!lineWrap) return;
+  var rubies = lineWrap.querySelectorAll('ruby');
+  if (rubies.length === 0) return;
+  var anyShown = Array.from(rubies).some(function(r){ return r.classList.contains('show'); });
+  rubies.forEach(function(r){ r.classList.toggle('show', !anyShown); });
+}
+
+function toggleSent(id, btn) {
+  var el = document.getElementById(id);
+  if (!el) return;
+  el.classList.toggle('show');
+}
+
+function toggleAns(id) {
+  var el = document.getElementById(id);
+  if (!el) return;
+  el.classList.toggle('show');
+  var btn = el.previousElementSibling;
+  if (btn && btn.classList.contains('ans-btn')) {
+    btn.textContent = el.classList.contains('show') ? '答えを隠す' : '答えを見る';
+  }
+}
+</script>
+
+</body>
+</html>
+
+</body></html>
